@@ -182,7 +182,8 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
     
     var returndata;
     var sendrequest = await request(options)
-    .then(function (parsedBody) {
+    .then(function (parsedBody) {"droupouts"
+        console.log()
         console.log(parsedBody); // parsedBody contains the data sent back from the Flask server
         returndata = parsedBody; // do something with this data, here I'm assigning it to a variable.
     })
@@ -192,7 +193,7 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
     
     // res.send(returndata);
 
-      certified=returndata.droupouts.substring(2,7),
+      certified=returndata.droupouts.substring(1,7),
     
     console.log(certified)
     res.send(certified)

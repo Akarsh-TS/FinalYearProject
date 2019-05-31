@@ -6,6 +6,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
+            <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
     <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/libs/css/style.css">
@@ -26,6 +28,58 @@
     flex: 0 0 100%;
     max-width: 100%;
 }
+.container {
+  padding: 16px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 17px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
 </style>
 <body style="background: #efeff6;">
 
@@ -53,16 +107,22 @@
                                 Menu
                             </li>
                             <li class="nav-item ">
-                                <a class="nav-link active" href="#"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                                <a class="nav-link active" href="unified"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                             </li>
                             <li id="Courses" class="nav-item">
-                                <a class="nav-link" href="/input"><i class="fa fa-fw fa-square"></i>Certificate Predictor</a>
+                                <a class="nav-link" href="/input"><i class="fa fa-fw fa-square"></i>Certification Predictor</a>
                             </li>
-                               <li id="Courses1" class="nav-item">
-                                <a class="nav-link" href="/input1"><i class="fa fa-fw fa-square"></i>Droupout Predictor</a>
+                            <li id="Courses" class="nav-item">
+                                <a class="nav-link" href="/input1"><i class="fa fa-fw fa-square"></i>Certification Predictor</a>
+                            </li>
+                            <li id="Student" class="nav-item">
+                                <a class="nav-link" href="/"><i class="fa fa-fw fa-rocket"></i>Profile</a>
+                            </li>
+                            <li id="Admin" class="nav-item">
+                                <a class="nav-link" href="/"><i class="fa fa-fw fa-rocket"></i>Admin</a>
                             </li>
                             <li id="Logout" class="nav-item">
-                                <a class="nav-link" href="#"><i class="fa fa-fw fa-rocket"></i>Logout</a>
+                                <a class="nav-link" href="/"><i class="fa fa-fw fa-rocket"></i>Logout</a>
                             </li>
                         </ul>
                     </div>
@@ -76,72 +136,63 @@
 
                     <div class="ecommerce-widget">
 
-                        <!-- <div class="row">
-                            <div style="max-width: 80%;flex: 0 0 45%;margin: 10px;">
+                        <div class="row">
+                            <div style="width: 80%;">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5 class="text-muted">Certification Prediction</h5>
+                                        <h2 class="text-muted">No Of Droupouts</h2>
                                         <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1"><% if(response.certified[1]=='1'){ %>
-                                                Certified
-                                                <%}else{%>
-                                                Not Certified
-                                                <% } %>
-                                            </h1>
-                                        </div>
-                                    </div>
-                            
-                                </div>
-                            </div> -->
-
-                            <!-- <div style="max-width: 80%;flex: 0 0 45%; margin: 10px;">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="text-muted">Number Of Dropouts</h5>
-                                        <div class="metric-value d-inline-block">
-                                            <h1 class="mb-1"><%= parseInt(response.droupout.substring(1,response.droupout.length -1)) %></h1>
+                                            <h4 class="mb-1">
+                                                <span id="c"><b>LOOK HERE FOR PREDICTION!!!</b></span>
+                                            </h4>
                                         </div>
                                     </div>
                             
                                 </div>
                             </div>
-                            
-                        </div> -->
+
+                    
+                        </div>
                         <div class="row">
                             
                             <div style="max-width: 100%;flex:0 0 100%">
                                 <div class="card">
-                                    <h5 class="card-header">Course Recommendations</h5>
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="bg-light">
-                                                    <tr class="border-0">
-                                                        <th class="border-0">#</th>
-                                                        <th class="border-0">Course</th>
-                                                        <th class="border-0">Website</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% var i=1
-                                                    console.log(response)
-                                                    for(data of response.profileData.courses) { 
+                                  <div class="container">
+    <h3>Fill in the input to predict your Certification</h3>
+    <hr>
 
-                                                    %>
-                                                    <tr>
-                                                        <td><%= i %></td>
-                                                        <td><%= data %></td>
-                                                        <td><%
-                                                            if(data[0]=="H"){
-                                                         %><i>www.harvard.edu</i><% } else{ %>
-                                                         <i>www.mit.edu</i><% }%>
-                                                        </td> 
-                                                    </tr>
-                                                     <% i++}; %> 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+    <label for="Institution"><b>Institution</b></label>
+    <select id="institution">
+        <option value="1" selected>MIT</option>
+        <option value="2">Harvard University</option>
+    </select>
+    <label for="participants"><b>Participants Course Content Accessed</b></label>
+    <input type="text" placeholder="Enter participants" id="participants" >
+
+    <label for="hrs"><b>Total Course Hours Thousands</b></label>
+    <input type="text" placeholder="Enter hours" id="hrs" >
+    <label for="male"><b>X Male</b></label>
+    <input type="text" placeholder="Enter X Male" id="male" >
+    <label for="Female"><b>X Female</b></label>
+    <input type="text" placeholder="Enter X Female" id="Female" >
+    <label for="audited"><b>Audited 50 Course Content Accessed</b></label>
+    <input type="text" placeholder="Enter value" id="audited" >
+    <label for="title"><b>Course title</b></label>
+    <select id="title">
+        <option value="11" selected>Elements of Structures</option>
+        <option value="12">Human Health and Global Environmental Change</option>
+        <option value="104">Data Analysis for Genomics: Case Study, RNA Sequence Data Analysis</option>
+        <option value="113">Making Science and Engineering Pictures: A Practical Guide to Presenting Your Work</option>
+        <option value="201">Magnetic Materials and Devices</option>
+        <option value="401">Political and Intellectual Foundations: From the Sage Kings to Confucius and the Legalists</option>
+        <option value="16">Global Architecture</option>
+    </select>
+    <hr>
+                        <button class="w3-btn w3-blue" id ="droupoutPredict">Login</button>               
+  </div>
+
+
+
                                 </div>
                             </div>
                             
