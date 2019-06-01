@@ -214,9 +214,10 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
              if(user ===null){
                res.end("Login invalid");
             }else if (user.name === req.body.name && user.pass === req.body.pass){
-              console.log(user)
-              console.log(user.courses[1])
+              // console.log(user)
+              // console.log(user.courses[1])
             // res.render('unified',{profileData:user});
+            console.log("retrieved user data!\n")
 
           } else {
             console.log("Credentials wrong");
@@ -233,7 +234,7 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
     var returndata;
     var sendrequest = await request(options)
     .then(function (parsedBody) {
-        console.log(parsedBody); // parsedBody contains the data sent back from the Flask server
+        // console.log(parsedBody); // parsedBody contains the data sent back from the Flask server
         returndata = parsedBody; // do something with this data, here I'm assigning it to a variable.
     })
     .catch(function (err) {
@@ -244,10 +245,10 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
     var response={
       certified:returndata.certify,
       droupout:returndata.droupout,
-      profileData:users
+      profileData:users,
+      contentbased:returndata.contentBased
     }
-    // res.render('unified',{data:returndata,profileData:users})
-    console.log(response)
+    console.log("Response\n",response,"\n")
     res.render('unified',{response:response})
  });
 });
