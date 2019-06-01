@@ -247,8 +247,8 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
       profileData:users
     }
     // res.render('unified',{data:returndata,profileData:users})
+    console.log(response)
     res.render('unified',{response:response})
  });
 });
-
 
