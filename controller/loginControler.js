@@ -108,6 +108,18 @@ app.post('/regiterToDb',urlencodedParser,async function(req,res){
     );
     break;
 
+
+  case "MHxPC130597667":c = new Array(
+      {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science "},
+      {name:"HarvardX/ER22x/2013_Spring",title:"Justice"},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research "},
+      {name:"MITx/8.02x/2013_Spring",title:"Electricity and Magnetism"}
+    );
+    break;
+
+
+
+
   default:c = new Array('HarvardX/CB22x/2013_Spring','HarvardX/CS50x/2012','HarvardX/ER22x/2013_Spring ','HarvardX/PH207x/2012_Fall')
   }
   var myobj = { 
@@ -264,13 +276,29 @@ app.post('/updateUserToDB',urlencodedParser, function(req,res){
     {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry "},
     {name:"MITx/6.00x/2012_Fall ",title:"Introduction to Computer Science and Programming"}
     );
-  
-  default:c = c = new Array(
-    {name:"HarvardX/CB22x/2013_Spring",title:"The Ancient Greek Hero"},
-    {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science (2016) "},
-    {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry "},
-    {name:"MITx/6.00x/2012_Fall ",title:"Introduction to Computer Science and Programming"}
+    break;
+
+  case "MHxPC130597670":c = new Array(
+      {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry"},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research "},
+      {name:"HarvardX/PH278x/2013_Spring",title:"Human Health and Global Environmental Change"},
+      {name:"MITx/6.002x/2012_Fall",title:"Circuits and Electronics"}
     );
+    break;
+
+
+  case "MHxPC130597667":c = new Array(
+      {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science "},
+      {name:"HarvardX/ER22x/2013_Spring",title:"Justice"},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research "},
+      {name:"MITx/8.02x/2013_Spring",title:"Electricity and Magnetism"}
+    );
+    break;
+
+
+
+
+  default:c = new Array('HarvardX/CB22x/2013_Spring','HarvardX/CS50x/2012','HarvardX/ER22x/2013_Spring ','HarvardX/PH207x/2012_Fall')
   }
   var myquery = { name: req.body.name };
   var newvalues = { $set: {userid: req.body.userid,courses:c } };
@@ -297,7 +325,7 @@ app.post('/updateUserToDB',urlencodedParser, function(req,res){
              if(user ===null){
                res.end("Login invalid");
             }else if (user.name === req.body.name && user.pass === req.body.pass){
-              // console.log(user)
+              console.log(user)
               // console.log(user.courses[1])
             // res.render('unified',{profileData:user});
             console.log("retrieved user data!\n")
@@ -310,7 +338,7 @@ app.post('/updateUserToDB',urlencodedParser, function(req,res){
    });
    var options = {
         method: 'GET',
-        uri: 'http://127.0.0.1:5000/ ',
+        uri: 'http://127.0.0.1:5000/',
         json: true // Automatically stringifies the body to JSON
     };
     

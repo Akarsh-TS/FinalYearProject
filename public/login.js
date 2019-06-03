@@ -91,7 +91,7 @@ $(document).ready(function(){
          type : 'GET',
          url : '/input',
          success: function(data){
-         $("#body").html(data);
+         $("#mainDiv").html(data);
          }
        });
    })
@@ -113,7 +113,7 @@ $(document).ready(function(){
          type : 'GET',
          url : '/input1',
          success: function(data){
-         $("#body").html(data);
+         $("#mainDiv").html(data);
          }
        });
    })
