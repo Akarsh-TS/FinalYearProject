@@ -12,6 +12,24 @@ $(document).ready(function(){
    $("#loginBtn").click(function(){
      var uname  = $("#uname").val();
      var upass = $("#upass").val();
+     window.localStorage.setItem("uname",uname)
+     window.localStorage.setItem("upass",upass)
+
+     var loginData ={'name': uname,'pass':upass};
+     $.ajax({
+         type : 'POST',
+         url : '/unified',
+         data : loginData,
+         success: function(data){
+         $("#mainDiv").html(data);
+         }
+       });
+   });
+
+   $("#dashboard").click(function(){
+     var uname  = window.localStorage.getItem("uname",uname);
+     var upass = window.localStorage.getItem("upass",upass);
+     
      var loginData ={'name': uname,'pass':upass};
      $.ajax({
          type : 'POST',
@@ -25,6 +43,21 @@ $(document).ready(function(){
 
    //====logout
 
+   $("#profile").click(function(){
+    console.log(window.localStorage.getItem("uname"))
+    var uname  = window.localStorage.getItem("uname")
+    var upass = window.localStorage.getItem("upass")
+    var loginData ={'name': uname,'pass':upass};
+    $.ajax({
+         type : 'POST',
+         url : '/p',
+         data : loginData,
+         success: function(data){
+         $("#mainDiv").html(data);
+         }
+       });
+
+   })
   
 
     $("#certify").click(function(){
@@ -57,6 +90,17 @@ $(document).ready(function(){
     $.ajax({
          type : 'GET',
          url : '/input',
+         success: function(data){
+         $("#body").html(data);
+         }
+       });
+   })
+
+   $("#profile").click(function(){
+
+    $.ajax({
+         type : 'GET',
+         url : '/profile',
          success: function(data){
          $("#body").html(data);
          }
@@ -144,13 +188,33 @@ $(document).ready(function(){
      var institution = $("#institution").val();
      var participants = $("#participants").val();
      var gender = $("#gender").val();
-     var regData ={'name': uname,'pass':upass,'email':email,'institution':institution,'participants':participants,'gender':gender};
+     items=["MHxPC130597674","MHxPC130597670","MHxPC130597667","MHxPC130597665","MHxPC130597661","MHxPC130597659","MHxPC130597654","MHxPC130597653","MHxPC130597652"]
+     var item = items[Math.floor(Math.random()*items.length)];
+     var regData ={'name': uname,'pass':upass,'email':email,'institution':institution,'participants':participants,'gender':gender,'userid':item};
        $.ajax({
          type : 'POST',
          url : '/regiterToDb',
          data : regData,
          success: function(data){
          $("#mainDiv").html(data);
+         }
+       });
+   });
+
+//update
+   $("#updateProfile").click(function(){
+     var uname  = $("#uname").val();
+     var upass = $("#upass").val();
+     var userid=$("#uid").val();
+     var regData ={'name': uname,'pass':upass,'userid':userid};
+     console.log(regData)
+       $.ajax({
+         type : 'POST',
+         url : '/updateUserToDB',
+         data : regData,
+         success: function(data){
+          console.log("updated")
+         alert("Updated")
          }
        });
    });

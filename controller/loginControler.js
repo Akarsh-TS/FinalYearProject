@@ -88,7 +88,28 @@ app.post('/regiterToDb',urlencodedParser,async function(req,res){
  MongoClient.connect(url, function(err, db) {
   if (err) throw err;
   var dbo = db.db("mydb");
-  var c=new Array("HarvardX/CB22x/2013_Spring","HarvardX/CS50x/2012","HarvardX/ER22x/2013_Spring ","HarvardX/PH207x/2012_Fall","HarvardX/PH278x/2013_Spring","MITx/14.73x/2013_Spring","MITx/2.01x/2013_Spring","MITx/3.091x/2012_Fall","MITx/3.091x/2013_Spring","MITx/6.002x/2012_Fall ","MITx/6.002x/2013_Spring","MITx/6.00x/2012_Fall");
+  var u=req.body.userid
+  var c;
+  switch(u){
+  // var c=new Array("HarvardX/CB22x/2013_Spring","HarvardX/CS50x/2012","HarvardX/ER22x/2013_Spring ","HarvardX/PH207x/2012_Fall","HarvardX/PH278x/2013_Spring","MITx/14.73x/2013_Spring","MITx/2.01x/2013_Spring","MITx/3.091x/2012_Fall","MITx/3.091x/2013_Spring","MITx/6.002x/2012_Fall ","MITx/6.002x/2013_Spring","MITx/6.00x/2012_Fall");
+  case "MHxPC130597674":c = new Array(
+    {name:"HarvardX/CB22x/2013_Spring",title:"The Ancient Greek Hero"},
+    {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science (2016) "},
+    {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry "},
+    {name:"MITx/6.00x/2012_Fall ",title:"Introduction to Computer Science and Programming"}
+    );
+    break;
+
+  case "MHxPC130597670":c = new Array(
+      {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry"},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research "},
+      {name:"HarvardX/PH278x/2013_Spring",title:"Human Health and Global Environmental Change"},
+      {name:"MITx/6.002x/2012_Fall",title:"Circuits and Electronics"}
+    );
+    break;
+
+  default:c = new Array('HarvardX/CB22x/2013_Spring','HarvardX/CS50x/2012','HarvardX/ER22x/2013_Spring ','HarvardX/PH207x/2012_Fall')
+  }
   var myobj = { 
     name: req.body.name, 
     pass: req.body.pass, 
@@ -96,16 +117,19 @@ app.post('/regiterToDb',urlencodedParser,async function(req,res){
     institution:req.body.institution,
     gender:req.body.gender,
     participants:req.body.participants,
-    courses:c};
+    courses:c,
+    userid:req.body.userid
+  };
+  console.log("Myobj\n\n",myobj)
   dbo.collection("userprofile").insertOne(myobj, function(err, res) {
     if (err) throw err;
     console.log("1 document inserted");
     db.close();
   });
-        res.render('a')
+        
 
 });
-     
+     res.render('a')
 
   });
 //register profile to MongoDB================================================================
@@ -166,7 +190,27 @@ app.post('/certify',urlencodedParser,async function(req,res){
 })
 
 
+app.post('/p',urlencodedParser, function(req,res){
+  MongoClient.connect(url,  function(err, db) {
+    console.log("Request:\n",req.body)
+         db.collection('userprofile').findOne({ name: req.body.name}, function(err, user) {
+    users=user
+             if(user ===null){
+               res.end("Login invalid");
+            }else if (user.name === req.body.name && user.pass === req.body.pass){
+             console.log("retrieved user data!\n")
 
+            res.render('profile',{loginData:user});
+            
+
+          } else {
+            console.log("Credentials wrong");
+            res.end("Login invalid");
+          }
+   });
+   });
+    
+  });
 
 
 
@@ -200,6 +244,45 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
 })
 
 
+
+
+//update db in user
+app.post('/updateUserToDB',urlencodedParser, function(req,res){
+  console.log("updating..\n",req.body)
+ var obj = JSON.stringify(req.body);
+ var jsonObj = JSON.parse(obj);
+ MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  var dbo = db.db("mydb");
+  var u=req.body.userid
+  var c;
+  switch(u){
+  // var c=new Array("HarvardX/CB22x/2013_Spring","HarvardX/CS50x/2012","HarvardX/ER22x/2013_Spring ","HarvardX/PH207x/2012_Fall","HarvardX/PH278x/2013_Spring","MITx/14.73x/2013_Spring","MITx/2.01x/2013_Spring","MITx/3.091x/2012_Fall","MITx/3.091x/2013_Spring","MITx/6.002x/2012_Fall ","MITx/6.002x/2013_Spring","MITx/6.00x/2012_Fall");
+  case "MHxPC130597674":c = new Array(
+    {name:"HarvardX/CB22x/2013_Spring",title:"The Ancient Greek Hero"},
+    {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science (2016) "},
+    {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry "},
+    {name:"MITx/6.00x/2012_Fall ",title:"Introduction to Computer Science and Programming"}
+    );
+  
+  default:c = c = new Array(
+    {name:"HarvardX/CB22x/2013_Spring",title:"The Ancient Greek Hero"},
+    {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science (2016) "},
+    {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry "},
+    {name:"MITx/6.00x/2012_Fall ",title:"Introduction to Computer Science and Programming"}
+    );
+  }
+  var myquery = { name: req.body.name };
+  var newvalues = { $set: {userid: req.body.userid,courses:c } };
+  dbo.collection("userprofile").updateOne(myquery, newvalues, function(err, res) {
+    if (err) throw err;
+    console.log("1 document updated");
+    db.close();
+  });
+        
+
+});
+  });
 
 
 
@@ -246,7 +329,9 @@ app.post('/dropouts',urlencodedParser,async function(req,res){
       certified:returndata.certify,
       droupout:returndata.droupout,
       profileData:users,
-      contentbased:returndata.contentBased
+      contentbased:returndata.contentBased,
+      username:req.body.name,
+      password:req.body.pass
     }
     console.log("Response\n",response,"\n")
     res.render('unified',{response:response})

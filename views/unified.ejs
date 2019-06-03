@@ -28,11 +28,12 @@
 }
 
 .row{
-    display: inline-flex;
+    /*display: inline-flex;*/
 }
 .card{
-    width:500px;
+    width:800px;
     margin:20px; 
+    left:150px; 
 }
 </style>
 <body style="background: #efeff6;">
@@ -60,14 +61,18 @@
                             <li class="nav-divider">
                                 Menu
                             </li>
-                            <li class="nav-item ">
-                                <a class="nav-link active" href="#"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                            <li class="nav-item " id="dashboard">
+                                <a class="nav-link active" href=""><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                             </li>
                             <li id="Courses" class="nav-item">
                                 <a class="nav-link" href="/input"><i class="fa fa-fw fa-square"></i>Certificate Predictor</a>
                             </li>
                                <li id="Courses1" class="nav-item">
                                 <a class="nav-link" href="/input1"><i class="fa fa-fw fa-square"></i>Droupout Predictor</a>
+                            </li>
+                            </li>
+                               <li id="profile" class="nav-item">
+                                <a class="nav-link"><i class="fa fa-fw fa-square"></i>Your Profile</a>
                             </li>
                             <li id="Logout" class="nav-item">
                                 <a class="nav-link" href="#"><i class="fa fa-fw fa-rocket"></i>Logout</a>
@@ -80,7 +85,7 @@
 
         <div class="dashboard-wrapper" style="background: #efeff6;">
             <div class="dashboard-ecommerce">
-                <div class="container-fluid dashboard-content "id="main">
+                <div class="container-fluid dashboard-content "id="main" style="padding:4px">
 
                     <div class="ecommerce-widget">
 
@@ -115,10 +120,10 @@
                             </div>
                             
                         </div> -->
-                        <div class="row" style="max-width: 50%">
+                        <div class="row" style="max-width: 100%">
                             
                             <div style="max-width:100%;flex:0 0 100%">
-                                <div class="card">
+                                <div class="card" style="margin-top: 30px;">
                                     <h5 class="card-header">C FILTER</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
@@ -127,6 +132,7 @@
                                                     <tr class="border-0">
                                                         <th class="border-0">#</th>
                                                         <th class="border-0">Course</th>
+                                                        <th class="border-0">Title</th>
                                                         <th class="border-0">Website</th>
                                                     </tr>
                                                 </thead>
@@ -137,7 +143,8 @@
                                                     %>
                                                     <tr>
                                                         <td><%= i %></td>
-                                                        <td><%= data %></td>
+                                                        <td><%= data.name %></td>
+                                                        <td><%= data.title %></td>
                                                         <td><%
                                                             if(data[0]=="H"){
                                                          %><i>www.harvard.edu</i><% } else{ %>
@@ -155,10 +162,10 @@
                         </div>
 
 
-                        <div class="row" style="max-width: 50%">
+                        <div class="row" style="max-width: 100%">
                             
                             <div style="max-width:100%;flex:0 0 100%">
-                                <div class="card">
+                                <div class="card" style="margin-top: 15px;">
                                     <h5 class="card-header">Content Based Filtering</h5>
                                     <div class="card-body p-0">
                                         <div class="table-responsive">
@@ -167,22 +174,22 @@
                                                     <tr class="border-0">
                                                         <th class="border-0">#</th>
                                                         <th class="border-0">Course</th>
-                                                        <th class="border-0">Website</th>
+                                                        <!-- <th class="border-0">Website</th> -->
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <% var i=1
-                                                    for(data of response.profileData.courses) { 
+                                                    for(data of response.contentbased) { 
 
                                                     %>
                                                     <tr>
                                                         <td><%= i %></td>
                                                         <td><%= data %></td>
-                                                        <td><%
+                                                        <!-- <td><%
                                                             if(data[0]=="H"){
                                                          %><i>www.harvard.edu</i><% } else{ %>
                                                          <i>www.mit.edu</i><% }%>
-                                                        </td> 
+                                                        </td>  -->
                                                     </tr>
                                                      <% i++}; %> 
                                                 </tbody>
