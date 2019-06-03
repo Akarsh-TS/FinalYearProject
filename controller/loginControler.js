@@ -117,10 +117,28 @@ app.post('/regiterToDb',urlencodedParser,async function(req,res){
     );
     break;
 
+case "MHxPC130597665":c = new Array(
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research"},
+      {name:"MITx/6.002x/2012_Fall",title:"Circuits and Electronics "},
+      {name:"MITx/14.73x/2013_Spring",title:"Challenges of World Poverty "},
+      {name:"MITx/2.01x/2013_Spring",title:"Elements of Structures "}
+    );
+    break;
 
+case "MHxPC130000011":c = new Array(
+      {name:"HarvardX/CB22x/2013_Spring",title:"The Ancient Greek Hero "},
+      {name:"HarvardX/ER22x/2013_Spring",title:"Justice "},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research" },
+      {name:"MITx/6.002x/2012_Fall ",title:"Circuits and Electronics  "}
+    );
+    break;
 
-
-  default:c = new Array('HarvardX/CB22x/2013_Spring','HarvardX/CS50x/2012','HarvardX/ER22x/2013_Spring ','HarvardX/PH207x/2012_Fall')
+  default:c = new Array(
+    {name:"MITx/6.002x/2012_Fall",title:"Circuits and Electronics"},
+      {name:"MITx/3.091x/2012_Fall",title:"Introduction to Solid State Chemistry"},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research "},
+      {name:"HarvardX/PH278x/2013_Spring",title:"Human Health and Global Environmental Change"}
+    );
   }
   var myobj = { 
     name: req.body.name, 
@@ -298,7 +316,12 @@ app.post('/updateUserToDB',urlencodedParser, function(req,res){
 
 
 
-  default:c = new Array('HarvardX/CB22x/2013_Spring','HarvardX/CS50x/2012','HarvardX/ER22x/2013_Spring ','HarvardX/PH207x/2012_Fall')
+  default:c = c = new Array(
+    {name:"HarvardX/ER22x/2013_Spring",title:"Justice"},
+      {name:"HarvardX/CS50x/2012",title:"Introduction to Computer Science "},
+      {name:"HarvardX/PH207x/2012_Fall",title:"Health in Numbers: Quantitative Methods in Clinical and Public Health Research "},
+      {name:"MITx/8.02x/2013_Spring",title:"Electricity and Magnetism"}
+    );
   }
   var myquery = { name: req.body.name };
   var newvalues = { $set: {userid: req.body.userid,courses:c } };
@@ -317,28 +340,20 @@ app.post('/updateUserToDB',urlencodedParser, function(req,res){
 
 
 
-  app.post('/unified',urlencodedParser,async function(req,res){
-    var users;
-     MongoClient.connect(url,  function(err, db) {
-   db.collection('userprofile').findOne({ name: req.body.name}, function(err, user) {
+  app.post('/unified',urlencodedParser, function(req,res){
+  var users;
+  MongoClient.connect(url,  function(err, db) {
+   db.collection('userprofile').findOne({ name: req.body.name},async function(err, user) {
     users=user
              if(user ===null){
                res.end("Login invalid");
             }else if (user.name === req.body.name && user.pass === req.body.pass){
-              console.log(user)
+              console.log(user.userid)
               // console.log(user.courses[1])
             // res.render('unified',{profileData:user});
-            console.log("retrieved user data!\n")
-
-          } else {
-            console.log("Credentials wrong");
-            res.end("Login invalid");
-          }
-   });
-   });
-   var options = {
+            var options = {
         method: 'GET',
-        uri: 'http://127.0.0.1:5000/',
+        uri: 'http://127.0.0.1:5000/?users='+user.userid,
         json: true // Automatically stringifies the body to JSON
     };
     
@@ -363,6 +378,41 @@ app.post('/updateUserToDB',urlencodedParser, function(req,res){
     }
     console.log("Response\n",response,"\n")
     res.render('unified',{response:response})
+            console.log("retrieved user data!\n")
+
+          } else {
+            console.log("Credentials wrong");
+            res.end("Login invalid");
+          }
+   });
+   });
+   // var options = {
+   //      method: 'GET',
+   //      uri: 'http://127.0.0.1:5000/',
+   //      json: true // Automatically stringifies the body to JSON
+   //  };
+    
+   //  var returndata;
+   //  var sendrequest = await request(options)
+   //  .then(function (parsedBody) {
+   //      // console.log(parsedBody); // parsedBody contains the data sent back from the Flask server
+   //      returndata = parsedBody; // do something with this data, here I'm assigning it to a variable.
+   //  })
+   //  .catch(function (err) {
+   //      console.log(err);
+   //  });
+    
+   //  // res.send(returndata);
+   //  var response={
+   //    certified:returndata.certify,
+   //    droupout:returndata.droupout,
+   //    profileData:users,
+   //    contentbased:returndata.contentBased,
+   //    username:req.body.name,
+   //    password:req.body.pass
+   //  }
+   //  console.log("Response\n",response,"\n")
+   //  res.render('unified',{response:response})
  });
 });
 

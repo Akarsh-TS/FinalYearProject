@@ -31,7 +31,7 @@
     /*display: inline-flex;*/
 }
 .card{
-    width:800px;
+    width:900px;
     margin:20px; 
     left:150px; 
 }
@@ -120,6 +120,80 @@
                             </div>
                             
                         </div> -->
+
+                        <div class="row" style="max-width: 100%">
+                            
+                            <div style="max-width:100%;flex:0 0 100%">
+                                <div class="card" style="margin-top: 30px;">
+                                    <h5 class="card-header">Courses choosen By the user</h5>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                        <th class="border-0">#</th>
+                                                        <th class="border-0">Course</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% var i=1
+                                                    for(data of response.contentbased[1]) { 
+
+                                                    %>
+                                                    <tr>
+                                                        <td><%= i %></td>
+                                                        <td><%= data %></td>
+                                    
+                                                    </tr>
+                                                     <% i++}; %> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+
+                        <div class="row" style="max-width: 100%">
+                            
+                            <div style="max-width:100%;flex:0 0 100%">
+                                <div class="card" style="margin-top: 15px;">
+                                    <h5 class="card-header">Content Based Filtering</h5>
+                                    <div class="card-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead class="bg-light">
+                                                    <tr class="border-0">
+                                                        <th class="border-0">#</th>
+                                                        <th class="border-0">Course</th>
+                                                        <!-- <th class="border-0">Website</th> -->
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <% var i=1
+                                                    for(data of response.contentbased[0]) { 
+
+                                                    %>
+                                                    <tr>
+                                                        <td><%= i %></td>
+                                                        <td><%= data %></td>
+                                                        <!-- <td><%
+                                                            if(data[0]=="H"){
+                                                         %><i>www.harvard.edu</i><% } else{ %>
+                                                         <i>www.mit.edu</i><% }%>
+                                                        </td>  -->
+                                                    </tr>
+                                                     <% i++}; %> 
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row" style="max-width: 100%">
                             
                             <div style="max-width:100%;flex:0 0 100%">
@@ -160,47 +234,6 @@
                             </div>
                             
                         </div>
-
-
-                        <div class="row" style="max-width: 100%">
-                            
-                            <div style="max-width:100%;flex:0 0 100%">
-                                <div class="card" style="margin-top: 15px;">
-                                    <h5 class="card-header">Content Based Filtering</h5>
-                                    <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="bg-light">
-                                                    <tr class="border-0">
-                                                        <th class="border-0">#</th>
-                                                        <th class="border-0">Course</th>
-                                                        <!-- <th class="border-0">Website</th> -->
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <% var i=1
-                                                    for(data of response.contentbased) { 
-
-                                                    %>
-                                                    <tr>
-                                                        <td><%= i %></td>
-                                                        <td><%= data %></td>
-                                                        <!-- <td><%
-                                                            if(data[0]=="H"){
-                                                         %><i>www.harvard.edu</i><% } else{ %>
-                                                         <i>www.mit.edu</i><% }%>
-                                                        </td>  -->
-                                                    </tr>
-                                                     <% i++}; %> 
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                        </div>
-
 
 
                     </div>
